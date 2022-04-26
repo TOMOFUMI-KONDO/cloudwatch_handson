@@ -1,14 +1,19 @@
 import * as cdk from "aws-cdk-lib"
-import { aws_s3 as s3 } from "aws-cdk-lib"
+import { aws_ec2 as ec2 } from "aws-cdk-lib"
 
 export class CloudwatchHandsonStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    new s3.Bucket(this, "MyFirstBucket", {
-      versioned: true,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
+    new ec2.Vpc(this, "VPC", {
+      natGateways: 0,
+      subnetConfiguration: [
+        {
+          cidrMask: 24,
+          name: "public",
+          subnetType: ec2.SubnetType.PUBLIC,
+        },
+      ],
     })
   }
 }
