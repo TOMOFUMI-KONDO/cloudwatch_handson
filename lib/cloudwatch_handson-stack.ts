@@ -13,6 +13,11 @@ export class CloudwatchHandsonStack extends cdk.Stack {
           name: "public",
           subnetType: ec2.SubnetType.PUBLIC,
         },
+        {
+          cidrMask: 24,
+          name: "private",
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+        },
       ],
     })
   }
